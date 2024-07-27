@@ -1,7 +1,5 @@
 import { useState } from "react";
 
-function App() {
+export function App() {
   return <>dvsd</>;
 }
-
-export default App;
