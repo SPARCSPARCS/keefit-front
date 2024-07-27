@@ -15,7 +15,7 @@ export const router = createBrowserRouter([
     Component: MainPage,
   },
   {
-    path: "about",
+    path: "interview",
     Component: InterviewPage,
   },
 ]);
