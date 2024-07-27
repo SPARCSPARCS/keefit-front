@@ -1,5 +1,5 @@
 import { useState } from "react";
 
-export function Interview() {
+export function InterviewPage() {
   return <>dsdfgsdf</>;
 }

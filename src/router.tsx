@@ -6,16 +6,16 @@ import {
   Route,
   Link,
 } from "react-router-dom";
-import { App } from "./App";
-import { Interview } from "./pages/Interview";
+import { InterviewPage } from "./pages/Interview";
+import { MainPage } from "./pages/Main";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    Component: App,
+    Component: MainPage,
   },
   {
     path: "about",
-    Component: Interview,
+    Component: InterviewPage,
   },
 ]);
