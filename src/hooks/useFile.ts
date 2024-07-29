@@ -5,7 +5,7 @@ import axios from "axios";
 export function useFile() {
   const uploadFile = (blob: Blob) => {
     const formdata = new FormData();
-    formdata.append("file", blob, "upload.webm");
+    formdata.append("file", blob, "upload.wav");
 
     console.log("FILE", blob);
 

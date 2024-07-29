@@ -60,7 +60,7 @@ export function useAudio() {
     cancelAnimationFrame(requestAnimation.current);
 
     mediaRecorder.current.onstop = () => {
-      const getAudioBlob = new Blob(chunks, { type: "audio/webm" });
+      const getAudioBlob = new Blob(chunks, { type: "audio/wav" });
       const audioUrl = URL.createObjectURL(getAudioBlob);
       console.log("AAA", getAudioBlob);
       setAudioBlob(getAudioBlob);
