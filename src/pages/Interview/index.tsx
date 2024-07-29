@@ -10,6 +10,7 @@ import { ShowRecruitment } from "./ShowRecruitment";
 import { Funnel } from "../../components/Funnel";
 import { useNavigate } from "react-router-dom";
 import { Progress } from "../../components/Progress";
+import { DecibelCircle } from "../../components/DecibelCircle";
 
 export function InterviewPage() {
   const navigate = useNavigate();
@@ -93,14 +94,7 @@ export function InterviewPage() {
 
           {audioUrl != "" && <Button onClick={upload}>업로드</Button>}
 
-          <div
-            style={{
-              width: decibel / 1,
-              height: decibel / 1,
-              backgroundColor: "#000",
-              borderRadius: 500,
-            }}
-          ></div>
+          <DecibelCircle decibel={decibel} />
         </Funnel>
       </div>
 
