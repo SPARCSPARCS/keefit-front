@@ -7,7 +7,8 @@ import { Modal } from "../../components/Modal";
 import { useInterviewStore } from "../../features/store";
 
 export function InterviewPage() {
-  const { audioBlob, audioUrl, isStart, stopRecord, startRecord } = useAudio();
+  const { decibel, audioBlob, audioUrl, isStart, stopRecord, startRecord } =
+    useAudio();
   const { uploadFile } = useFile();
   const [isOpenModal, setIsOpenModal] = useState(false);
 
@@ -40,6 +41,8 @@ export function InterviewPage() {
       {recruitment}
       <Button onClick={onSaveRecruitment}>xdv</Button>
 
+      {decibel}
+
       <div
         css={css({
           display: "flex",
@@ -54,6 +57,15 @@ export function InterviewPage() {
         <audio src={audioUrl} controls></audio>
 
         {audioUrl != "" && <Button onClick={upload}>업로드</Button>}
+
+        <div
+          style={{
+            width: decibel / 1,
+            height: decibel / 1,
+            backgroundColor: "#000",
+            borderRadius: 500,
+          }}
+        ></div>
 
         <Button onClick={() => setIsOpenModal(true)}>modal</Button>
       </div>
