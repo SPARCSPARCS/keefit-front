@@ -4,11 +4,17 @@ import { css } from "@emotion/react";
 import { useAudio } from "../../hooks/useAudio";
 import { useFile } from "../../hooks/useFile";
 import { Modal } from "../../components/Modal";
+import { useInterviewStore } from "../../features/store";
 
 export function InterviewPage() {
   const { audioBlob, audioUrl, isStart, stopRecord, startRecord } = useAudio();
   const { uploadFile } = useFile();
   const [isOpenModal, setIsOpenModal] = useState(false);
+
+  const recruitment = useInterviewStore((state: any) => state.recruitment);
+  const setRecruitment = useInterviewStore(
+    (state: any) => state.setRecruitment
+  );
 
   const record = async () => {
     if (!isStart) {
@@ -25,8 +31,15 @@ export function InterviewPage() {
     uploadFile(audioBlob);
   };
 
+  const onSaveRecruitment = () => {
+    setRecruitment("sdfsdf" + Math.random());
+  };
+
   return (
     <>
+      {recruitment}
+      <Button onClick={onSaveRecruitment}>xdv</Button>
+
       <div
         css={css({
           display: "flex",
