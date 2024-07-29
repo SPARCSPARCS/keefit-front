@@ -5,6 +5,7 @@ export function useAudio() {
   const [stream, setStream] = useState(null);
   const [chunks, setchunks] = useState([]);
   const [audioUrl, setAudioUrl] = useState("");
+  const [audioBlob, setAudioBlob] = useState<Blob>();
 
   const mediaRecorder = useRef(null);
 
@@ -25,8 +26,10 @@ export function useAudio() {
   const stopRecord = async () => {
     mediaRecorder.current.stop();
     mediaRecorder.current.onstop = () => {
-      const audioBlob = new Blob(chunks, { type: "audio/mp3" });
-      const audioUrl = URL.createObjectURL(audioBlob);
+      const getAudioBlob = new Blob(chunks, { type: "audio/webm" });
+      const audioUrl = URL.createObjectURL(getAudioBlob);
+      console.log("AAA", getAudioBlob);
+      setAudioBlob(getAudioBlob);
       setAudioUrl(audioUrl);
       setchunks([]);
       setIsStart(false);
@@ -36,6 +39,7 @@ export function useAudio() {
   return {
     isStart,
     audioUrl,
+    audioBlob,
     startRecord,
     stopRecord,
   };
