@@ -9,6 +9,7 @@ import { InputUrl } from "./InputUrl";
 import { ShowRecruitment } from "./ShowRecruitment";
 import { Funnel } from "../../components/Funnel";
 import { useNavigate } from "react-router-dom";
+import { Progress } from "../../components/Progress";
 
 export function InterviewPage() {
   const navigate = useNavigate();
@@ -61,6 +62,7 @@ export function InterviewPage() {
 
   return (
     <>
+      <Progress progress={(nowPageIndex / pages.length) * 100}></Progress>
       <div
         css={css({
           display: "flex",
