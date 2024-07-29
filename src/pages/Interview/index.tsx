@@ -3,10 +3,12 @@ import { Button } from "../../components/Button";
 import { css } from "@emotion/react";
 import { useAudio } from "../../hooks/useAudio";
 import { useFile } from "../../hooks/useFile";
+import { Modal } from "../../components/Modal";
 
 export function InterviewPage() {
   const { audioBlob, audioUrl, isStart, stopRecord, startRecord } = useAudio();
   const { uploadFile } = useFile();
+  const [isOpenModal, setIsOpenModal] = useState(false);
 
   const record = async () => {
     if (!isStart) {
@@ -39,7 +41,13 @@ export function InterviewPage() {
         <audio src={audioUrl} controls></audio>
 
         {audioUrl != "" && <Button onClick={upload}>업로드</Button>}
+
+        <Button onClick={() => setIsOpenModal(true)}>modal</Button>
       </div>
+
+      <Modal onClose={() => setIsOpenModal(false)} isOpen={isOpenModal}>
+        <p>sdfsd</p>
+      </Modal>
     </>
   );
 }
