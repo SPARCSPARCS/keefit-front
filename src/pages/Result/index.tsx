@@ -3,11 +3,36 @@ import { Button } from "../../components/Button";
 import { css } from "@emotion/react";
 import { useNavigate } from "react-router-dom";
 import { useInterviewStore } from "../../features/store";
+import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
 
 export function ResultPage() {
   const navigate = useNavigate();
   const questions = useInterviewStore((state: any) => state.questions);
   const answers = useInterviewStore((state: any) => state.answers);
+
+  const sendResult = async () => {
+    try {
+      const response = await axios.post(
+        `http://svr/interview`,
+        {
+          companyName: "toss",
+          field: "직무",
+          questions: questions,
+          answers: answers,
+        },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    sendResult();
+  }, []);
 
   return (
     <>
