@@ -8,7 +8,7 @@ const buttonStyle = css({
   border: "none",
   borderRadius: "8px",
   padding: "1.125rem 3rem",
-  backgroundColor: "#261B23",
+  backgroundColor: "#98A634",
   color: "#fff",
   width: "100%",
   cursor: "pointer",
@@ -18,7 +18,7 @@ const buttonStyle = css({
   fontSize: "1rem",
   fontWeight: "700",
   ":hover": {
-    backgroundColor: "#30252d",
+    backgroundColor: "#78813B",
   },
 });
 

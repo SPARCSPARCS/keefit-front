@@ -38,7 +38,7 @@ export function MainPage() {
             style={{ width: "100%" }}
             onClick={() => navigate("/interview")}
           >
-            인터뷰
+            시작하기
           </Button>
         </div>
       </div>

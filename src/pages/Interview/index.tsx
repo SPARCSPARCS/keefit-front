@@ -185,6 +185,26 @@ export function InterviewPage() {
             )}
           </div>
 
+          <div
+            style={{
+              position: "fixed",
+              top: "0",
+              left: "0",
+              padding: "1rem",
+            }}
+          >
+            {nowQuestionIndex == -1 && (
+              <h2
+                css={css({
+                  lineHeight: "2.25rem",
+                })}
+              >
+                예상면접을 성공적으로 불러왔어요 <br />
+                면접 시작, 할 수 있어요!
+              </h2>
+            )}
+          </div>
+
           <audio
             style={{
               display: "none",

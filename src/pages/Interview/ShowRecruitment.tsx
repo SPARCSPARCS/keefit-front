@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import { Button } from "../../components/Button";
 import { useInterviewStore } from "../../features/store";
 
@@ -18,11 +19,19 @@ export function ShowRecruitment({ onNext }: { onNext?: any }) {
         }}
       >
         <h2>
-          입력한 정보가 맞다면 <br />
-          아래의 확인 버튼을 눌러주세요
+          준비되셨나요? <br />
+          면접 시작, 할 수 있어요!
         </h2>
       </div>
-      {recruitment}
+      <p
+        css={css({
+          color: "#ededf0",
+          lineHeight: "2rem",
+        })}
+      >
+        {recruitment}
+      </p>
+
       <div
         style={{
           position: "fixed",

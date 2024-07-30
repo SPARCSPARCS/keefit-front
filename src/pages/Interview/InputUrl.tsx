@@ -3,6 +3,7 @@ import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
 import axios from "axios";
 import { useInterviewStore } from "../../features/store";
+import { css } from "@emotion/react";
 
 export function InputUrl({ onNext }: { onNext?: any }) {
   const [value, setValue] = useState("");
@@ -38,7 +39,11 @@ export function InputUrl({ onNext }: { onNext?: any }) {
           padding: "1rem",
         }}
       >
-        <h2>
+        <h2
+          css={css({
+            lineHeight: "2.25rem",
+          })}
+        >
           연습하고 싶은 채용공고의 <br />
           링크를 입력해주세요
         </h2>
@@ -54,7 +59,11 @@ export function InputUrl({ onNext }: { onNext?: any }) {
         <Button onClick={handleClickNext}>다음</Button>
       </div>
 
-      <Input value={value} onChange={(e) => setValue(e.target.value)}></Input>
+      <Input
+        placeholder="https://naver.com/..."
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+      ></Input>
     </div>
   );
 }
