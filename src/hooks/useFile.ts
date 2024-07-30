@@ -5,12 +5,10 @@ import { useAnalysisStt } from "./useAnalysisStt";
 
 export function useFile() {
   const { analysisStt } = useAnalysisStt();
-  const uploadFile = async (blob: Blob) => {
+  const uploadFile = async (blob: Blob, recordNumber: number) => {
     try {
       const formdata = new FormData();
       formdata.append("file", blob, "upload.wav");
-
-      console.log("FILE", blob);
 
       const response = await axios.post(
         "http://127.0.0.1:8000/upload",
@@ -23,7 +21,7 @@ export function useFile() {
       );
 
       setTimeout(() => {
-        analysisStt(response.data.filename);
+        analysisStt(response.data.filename, recordNumber);
       }, 500);
     } catch (error) {}
   };

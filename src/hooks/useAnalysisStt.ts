@@ -6,7 +6,7 @@ import { useInterviewStore } from "../features/store";
 export function useAnalysisStt() {
   const setAnswers = useInterviewStore((state: any) => state.setAnswers);
 
-  const analysisStt = async (fileUrl: string) => {
+  const analysisStt = async (fileUrl: string, recordNumber: number) => {
     try {
       const response = await axios.get("http://127.0.0.1:8000/stt", {
         headers: {
@@ -17,7 +17,7 @@ export function useAnalysisStt() {
         },
       });
 
-      setAnswers(response.data.response);
+      setAnswers(recordNumber, response.data.response);
     } catch (error) {}
   };
 

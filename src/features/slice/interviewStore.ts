@@ -3,7 +3,7 @@ import { create } from "zustand";
 export const useInterviewStore = create((set) => ({
   recruitment: "",
   questions: [],
-  answers: [],
+  answers: [...Array.from({ length: 5 }, () => "")],
 
   setRecruitment: (content: string) =>
     set((state) => ({ recruitment: content })),
@@ -11,6 +11,9 @@ export const useInterviewStore = create((set) => ({
   setQuestions: (questionsArray: string[]) =>
     set((state) => ({ questions: questionsArray })),
 
-  setAnswers: (answer: string) =>
-    set((state) => ({ answers: [...state.answers, answer] })),
+  setAnswers: (index: number, answer: string) =>
+    set((state) => {
+      state.answers[index] = answer;
+      return [...state.answers];
+    }),
 }));

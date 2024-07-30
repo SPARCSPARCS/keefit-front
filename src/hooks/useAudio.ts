@@ -57,7 +57,7 @@ export function useAudio() {
     );
   };
 
-  const stopRecord = async () => {
+  const stopRecord = async (recordNumber: number) => {
     mediaRecorder.current.stop();
     source.disconnect();
     cancelAnimationFrame(requestAnimation.current);
@@ -67,7 +67,7 @@ export function useAudio() {
       const audioUrl = URL.createObjectURL(getAudioBlob);
       console.log("AAA", getAudioBlob);
 
-      uploadFile(getAudioBlob);
+      uploadFile(getAudioBlob, recordNumber);
 
       setAudioBlob(getAudioBlob);
       setAudioUrl(audioUrl);

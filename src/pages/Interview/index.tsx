@@ -49,7 +49,7 @@ export function InterviewPage() {
   const record = async () => {
     if (!isStart) {
       setNowQuestionIndex((index) => index + 1);
-      if (nowQuestionIndex > 4) {
+      if (nowQuestionIndex >= 4) {
         navigate("/result");
 
         return false;
@@ -57,15 +57,8 @@ export function InterviewPage() {
 
       await startRecord();
     } else {
-      await stopRecord();
+      await stopRecord(nowQuestionIndex);
     }
-  };
-
-  const upload = async () => {
-    // let response = await fetch(audioUrl);
-    // let data = await response.blob();
-    // console.log(data);
-    uploadFile(audioBlob);
   };
 
   return (
