@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { Button } from "../../components/Button";
 import { useInterviewStore } from "../../features/store";
 import axios from "axios";
+import { TopTitleBody } from "../../components/TopTitleBody";
+import { BounceTitle } from "../../components/Title";
 
 export function CreateQuestion({ onNext }: { onNext?: any }) {
   const recruitment = useInterviewStore((state: any) => state.recruitment);
@@ -34,16 +36,9 @@ export function CreateQuestion({ onNext }: { onNext?: any }) {
 
   return (
     <div>
-      <div
-        style={{
-          position: "fixed",
-          top: "0",
-          left: "0.5rem",
-          padding: "1rem",
-        }}
-      >
-        <h2>질문을 생성하고 있어요</h2>
-      </div>
+      <TopTitleBody>
+        <BounceTitle>질문을 생성하고 있어요</BounceTitle>
+      </TopTitleBody>
     </div>
   );
 }

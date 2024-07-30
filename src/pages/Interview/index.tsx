@@ -13,6 +13,8 @@ import { Progress } from "../../components/Progress";
 import { DecibelCircle } from "../../components/DecibelCircle";
 import { CreateQuestion } from "./CreateQuestion";
 import * as vision from "@mediapipe/tasks-vision";
+import { Title } from "../../components/Title";
+import { TopTitleBody } from "../../components/TopTitleBody";
 
 export function InterviewPage() {
   const navigate = useNavigate();
@@ -172,45 +174,24 @@ export function InterviewPage() {
         </Funnel>
 
         <Funnel isOpen={activePage == "Record"}>
-          <div
-            style={{
-              position: "fixed",
-              top: "0",
-              left: "0",
-              padding: "1rem",
-            }}
-          >
-            {isStart && (
-              <h2
-                css={css({
-                  color: "#fff",
-                })}
-              >
+          {isStart && (
+            <TopTitleBody>
+              <Title color="#fff" animationDelay="0">
                 {questions.length > 0 && <>{questions[nowQuestionIndex]}</>}
-              </h2>
-            )}
-          </div>
+              </Title>
+            </TopTitleBody>
+          )}
 
-          <div
-            style={{
-              position: "fixed",
-              top: "0",
-              left: "0.5rem",
-              padding: "1rem",
-              color: "#fff",
-            }}
-          >
-            {nowQuestionIndex == -1 && (
-              <h2
-                css={css({
-                  lineHeight: "2.25rem",
-                })}
-              >
-                예상면접을 성공적으로 불러왔어요 <br />
+          {nowQuestionIndex == -1 && (
+            <TopTitleBody>
+              <Title color="#fff" animationDelay="0">
+                예상면접을 성공적으로 불러왔어요
+              </Title>
+              <Title color="#fff" animationDelay="0.25">
                 면접 시작, 할 수 있어요!
-              </h2>
-            )}
-          </div>
+              </Title>
+            </TopTitleBody>
+          )}
 
           <audio
             style={{

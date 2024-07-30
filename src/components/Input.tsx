@@ -12,6 +12,7 @@ const inputStyle = css({
   transition: "0.2s",
   ":hover": {
     backgroundColor: "#f7f7f7",
+    padding: "0.75rem 0.5rem",
   },
 });
 

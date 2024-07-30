@@ -3,7 +3,9 @@ import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
 import axios from "axios";
 import { useInterviewStore } from "../../features/store";
-import { css } from "@emotion/react";
+import { css, keyframes } from "@emotion/react";
+import { Title } from "../../components/Title";
+import { TopTitleBody } from "../../components/TopTitleBody";
 
 export function InputUrl({ onNext }: { onNext?: any }) {
   const [value, setValue] = useState("");
@@ -31,23 +33,10 @@ export function InputUrl({ onNext }: { onNext?: any }) {
 
   return (
     <div>
-      <div
-        style={{
-          position: "fixed",
-          top: "0",
-          left: "0.5rem",
-          padding: "1rem",
-        }}
-      >
-        <h2
-          css={css({
-            lineHeight: "2.25rem",
-          })}
-        >
-          연습하고 싶은 채용공고의 <br />
-          링크를 입력해주세요
-        </h2>
-      </div>
+      <TopTitleBody>
+        <Title animationDelay="0">연습하고 싶은 채용공고의</Title>
+        <Title animationDelay="0.15">링크를 입력해주세요</Title>
+      </TopTitleBody>
 
       <div
         style={{
