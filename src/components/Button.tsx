@@ -1,9 +1,14 @@
 import { css } from "@emotion/react";
+import { LoaderCircle } from "lucide";
+import { Loading } from "./Loading";
 
 interface ButtonPropsType
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  isLoading?: boolean;
+}
 
 const buttonStyle = css({
+  display: "flex",
   outline: "none",
   border: "none",
   borderRadius: "8px",
@@ -17,16 +22,19 @@ const buttonStyle = css({
   transition: "0.2s",
   fontSize: "1rem",
   fontWeight: "700",
+  flexDirection: "row",
+  gap: "0.5rem",
   ":hover": {
     backgroundColor: "#3bab37",
   },
 });
 
 export function Button(props: ButtonPropsType) {
-  const { children } = props;
+  const { children, isLoading = false } = props;
   return (
     <button css={buttonStyle} {...props}>
-      {children}
+      {isLoading && <Loading />}
+      <b>{children}</b>
     </button>
   );
 }

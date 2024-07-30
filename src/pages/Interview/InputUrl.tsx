@@ -9,6 +9,7 @@ import { TopTitleBody } from "../../components/TopTitleBody";
 
 export function InputUrl({ onNext }: { onNext?: any }) {
   const [value, setValue] = useState("");
+  const [showLoad, setShowLoad] = useState(false);
 
   const recruitment = useInterviewStore((state: any) => state.recruitment);
   const setRecruitment = useInterviewStore(
@@ -16,6 +17,7 @@ export function InputUrl({ onNext }: { onNext?: any }) {
   );
 
   const handleClickNext = async () => {
+    setShowLoad(true);
     try {
       const response = await axios.get("http://127.0.0.1:8000/test/url", {
         headers: {
@@ -45,7 +47,13 @@ export function InputUrl({ onNext }: { onNext?: any }) {
           right: "1rem",
         }}
       >
-        <Button onClick={handleClickNext}>다음</Button>
+        <Button
+          disabled={showLoad}
+          isLoading={showLoad}
+          onClick={handleClickNext}
+        >
+          다음
+        </Button>
       </div>
 
       <Input

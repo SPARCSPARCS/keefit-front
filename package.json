@@ -14,6 +14,8 @@
     "@emotion/react": "^11.13.0",
     "@mediapipe/tasks-vision": "^0.10.14",
     "axios": "^1.7.2",
+    "lucide": "^0.417.0",
+    "lucide-react": "^0.417.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.25.1",
