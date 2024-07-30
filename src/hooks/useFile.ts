@@ -1,19 +1,31 @@
 import { useRef, useState } from "react";
 import { instanceAi } from "../api/axois";
 import axios from "axios";
+import { useAnalysisStt } from "./useAnalysisStt";
 
 export function useFile() {
-  const uploadFile = (blob: Blob) => {
-    const formdata = new FormData();
-    formdata.append("file", blob, "upload.wav");
+  const { analysisStt } = useAnalysisStt();
+  const uploadFile = async (blob: Blob) => {
+    try {
+      const formdata = new FormData();
+      formdata.append("file", blob, "upload.wav");
 
-    console.log("FILE", blob);
+      console.log("FILE", blob);
 
-    axios.post("http://127.0.0.1:8000/upload", formdata, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+      const response = await axios.post(
+        "http://127.0.0.1:8000/upload",
+        formdata,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      setTimeout(() => {
+        analysisStt(response.data.filename);
+      }, 500);
+    } catch (error) {}
   };
 
   return {

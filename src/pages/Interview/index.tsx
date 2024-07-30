@@ -49,6 +49,12 @@ export function InterviewPage() {
   const record = async () => {
     if (!isStart) {
       setNowQuestionIndex((index) => index + 1);
+      if (nowQuestionIndex > 4) {
+        navigate("/result");
+
+        return false;
+      }
+
       await startRecord();
     } else {
       await stopRecord();
