@@ -13,7 +13,7 @@ const buttonStyle = css({
   border: "none",
   borderRadius: "8px",
   padding: "1.125rem 3rem",
-  backgroundColor: "#3fcc39",
+  backgroundColor: "#66AD6A",
   color: "#fff",
   width: "100%",
   cursor: "pointer",
@@ -25,7 +25,7 @@ const buttonStyle = css({
   flexDirection: "row",
   gap: "0.5rem",
   ":hover": {
-    backgroundColor: "#3bab37",
+    backgroundColor: "#3B813E",
   },
 });
 

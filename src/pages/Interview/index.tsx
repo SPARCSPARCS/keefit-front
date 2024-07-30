@@ -15,6 +15,7 @@ import { CreateQuestion } from "./CreateQuestion";
 import * as vision from "@mediapipe/tasks-vision";
 import { Title } from "../../components/Title";
 import { TopTitleBody } from "../../components/TopTitleBody";
+import { TopNav } from "../../components/Nav";
 
 export function InterviewPage() {
   const navigate = useNavigate();
@@ -54,6 +55,19 @@ export function InterviewPage() {
 
     setActivePage(pages[index + 1]);
     setNowPageIndex((index) => index + 1);
+  };
+
+  const handleClickPrevButton = () => {
+    if (nowPageIndex == 0) {
+      navigate("/user/major");
+    }
+
+    const index = pages.findIndex((item) => {
+      return item == activePage;
+    });
+
+    setActivePage(pages[index - 1]);
+    setNowPageIndex((index) => index - 1);
   };
 
   const record = async () => {
@@ -149,6 +163,8 @@ export function InterviewPage() {
 
   return (
     <>
+      {activePage != "Record" && <TopNav onPrev={handleClickPrevButton} />}
+
       <Progress progress={(nowPageIndex / pages.length) * 100}></Progress>
       <div
         css={css({
