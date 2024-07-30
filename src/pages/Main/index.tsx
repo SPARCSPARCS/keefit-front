@@ -16,8 +16,31 @@ export function MainPage() {
           width: "100%",
           height: "100%",
         })}
+      ></div>
+
+      <div
+        css={css({
+          position: "fixed",
+          bottom: "0.5rem",
+          display: "flex",
+          width: "100%",
+        })}
       >
-        <Button onClick={() => navigate("/interview")}>인터뷰</Button>
+        <div
+          css={css({
+            display: "flex",
+            width: "100%",
+
+            padding: "1rem",
+          })}
+        >
+          <Button
+            style={{ width: "100%" }}
+            onClick={() => navigate("/interview")}
+          >
+            인터뷰
+          </Button>
+        </div>
       </div>
     </>
   );

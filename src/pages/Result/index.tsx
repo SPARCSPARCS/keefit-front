@@ -15,13 +15,59 @@ export function ResultPage() {
         css={css({
           display: "flex",
           justifyContent: "center",
-          alignItems: "center",
-          width: "100%",
-          height: "100%",
+          alignItems: "flex-start",
           flexDirection: "column",
+          padding: "1rem",
         })}
       >
-        <h2>결과</h2>
+        <h2
+          css={css({
+            fontSize: "1.5rem",
+          })}
+        >
+          형준님의 프론트엔드 직업 적합도는?
+        </h2>
+
+        <div
+          css={css({
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            textAlign: "center",
+            width: "100%",
+          })}
+        >
+          <h2
+            css={css({
+              fontSize: "5rem",
+              color: "#261B23",
+              margin: "1rem",
+            })}
+          >
+            👍
+          </h2>
+        </div>
+
+        <div
+          css={css({
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            textAlign: "center",
+            width: "100%",
+          })}
+        >
+          <h2
+            css={css({
+              fontSize: "5rem",
+              color: "#261B23",
+              marginTop: "0.5rem",
+            })}
+          >
+            92%
+          </h2>
+        </div>
+
         {questions.map((item, index) => (
           <p>
             {index}: {item}
@@ -33,7 +79,28 @@ export function ResultPage() {
             answers{index}: {item}
           </p>
         ))}
-        <Button onClick={() => navigate("/")}>홈</Button>
+      </div>
+
+      <div
+        css={css({
+          position: "fixed",
+          bottom: "0.5rem",
+          display: "flex",
+          width: "100%",
+        })}
+      >
+        <div
+          css={css({
+            display: "flex",
+            width: "100%",
+
+            padding: "1rem",
+          })}
+        >
+          <Button style={{ width: "100%" }} onClick={() => navigate("/")}>
+            홈으로 가기
+          </Button>
+        </div>
       </div>
     </>
   );

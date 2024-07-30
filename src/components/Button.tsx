@@ -7,16 +7,18 @@ const buttonStyle = css({
   outline: "none",
   border: "none",
   borderRadius: "8px",
-  padding: "1.25rem 3rem",
-  backgroundColor: "#000",
+  padding: "1.125rem 3rem",
+  backgroundColor: "#261B23",
   color: "#fff",
+  width: "100%",
   cursor: "pointer",
   alignItems: "center",
   justifyContent: "center",
   transition: "0.2s",
   fontSize: "1rem",
+  fontWeight: "700",
   ":hover": {
-    backgroundColor: "#262629",
+    backgroundColor: "#30252d",
   },
 });
 
