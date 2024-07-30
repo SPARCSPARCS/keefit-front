@@ -4,6 +4,8 @@ import { useInterviewStore } from "../../features/store";
 import axios from "axios";
 import { TopTitleBody } from "../../components/TopTitleBody";
 import { BounceTitle } from "../../components/Title";
+import { DEV_SERVER_PYTHON_API, PROD_SERVER_PYTHON_API } from "../../api/axois";
+import { isLocal } from "../../utils/isLocal";
 
 export function CreateQuestion({ onNext }: { onNext?: any }) {
   const recruitment = useInterviewStore((state: any) => state.recruitment);
@@ -11,8 +13,12 @@ export function CreateQuestion({ onNext }: { onNext?: any }) {
 
   const loadQuestions = async () => {
     try {
+      const url = isLocal()
+        ? `${DEV_SERVER_PYTHON_API}/questions`
+        : `${PROD_SERVER_PYTHON_API}/questions`;
+
       const getQuestions = await axios.post(
-        "http://127.0.0.1:8000/questions",
+        url,
         {
           content: recruitment,
         },
