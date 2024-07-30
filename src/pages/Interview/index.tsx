@@ -11,6 +11,7 @@ import { Funnel } from "../../components/Funnel";
 import { useNavigate } from "react-router-dom";
 import { Progress } from "../../components/Progress";
 import { DecibelCircle } from "../../components/DecibelCircle";
+import { CreateQuestion } from "./CreateQuestion";
 
 export function InterviewPage() {
   const navigate = useNavigate();
@@ -21,10 +22,13 @@ export function InterviewPage() {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [activePage, setActivePage] = useState("InputUrl");
   const [nowPageIndex, setNowPageIndex] = useState(0);
+  const [nowQuestionIndex, setNowQuestionIndex] = useState(-1);
 
-  const pages = ["InputUrl", "ShowRecruitment", "Record"];
+  const pages = ["InputUrl", "ShowRecruitment", "CreateQuestion", "Record"];
 
   const recruitment = useInterviewStore((state: any) => state.recruitment);
+  const questions = useInterviewStore((state: any) => state.questions);
+
   const setRecruitment = useInterviewStore(
     (state: any) => state.setRecruitment
   );
@@ -44,6 +48,7 @@ export function InterviewPage() {
 
   const record = async () => {
     if (!isStart) {
+      setNowQuestionIndex((index) => index + 1);
       await startRecord();
     } else {
       await stopRecord();
@@ -55,10 +60,6 @@ export function InterviewPage() {
     // let data = await response.blob();
     // console.log(data);
     uploadFile(audioBlob);
-  };
-
-  const onSaveRecruitment = () => {
-    setRecruitment("sdfsdf" + Math.random());
   };
 
   return (
@@ -74,15 +75,32 @@ export function InterviewPage() {
         })}
       >
         <Funnel isOpen={activePage == "InputUrl"}>
-          <InputUrl></InputUrl>
+          <InputUrl onNext={handleClickNextButton}></InputUrl>
         </Funnel>
 
         <Funnel isOpen={activePage == "ShowRecruitment"}>
-          <ShowRecruitment></ShowRecruitment>
+          <ShowRecruitment onNext={handleClickNextButton}></ShowRecruitment>
+        </Funnel>
+
+        <Funnel isOpen={activePage == "CreateQuestion"}>
+          <CreateQuestion onNext={handleClickNextButton}></CreateQuestion>
         </Funnel>
 
         <Funnel isOpen={activePage == "Record"}>
-          <Button onClick={record}>{isStart ? "중단" : "인터뷰 시작"}</Button>
+          <div
+            style={{
+              position: "fixed",
+              top: "0",
+              left: "0",
+              padding: "1rem",
+            }}
+          >
+            {isStart && (
+              <h2>
+                {questions.length > 0 && <>{questions[nowQuestionIndex]}</>}
+              </h2>
+            )}
+          </div>
 
           <audio
             style={{
@@ -92,20 +110,20 @@ export function InterviewPage() {
             controls
           ></audio>
 
-          {audioUrl != "" && <Button onClick={upload}>업로드</Button>}
+          {/* {audioUrl != "" && <Button onClick={upload}>업로드</Button>} */}
 
           <DecibelCircle decibel={decibel} />
-        </Funnel>
-      </div>
 
-      <div
-        style={{
-          position: "fixed",
-          bottom: "1rem",
-          right: "1rem",
-        }}
-      >
-        <Button onClick={handleClickNextButton}>다음</Button>
+          <div
+            style={{
+              position: "fixed",
+              bottom: "1rem",
+              right: "1rem",
+            }}
+          >
+            <Button onClick={record}>{isStart ? "중단" : "인터뷰 시작"}</Button>
+          </div>
+        </Funnel>
       </div>
 
       <Modal onClose={() => setIsOpenModal(false)} isOpen={isOpenModal}>

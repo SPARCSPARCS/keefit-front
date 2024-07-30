@@ -1,6 +1,9 @@
 import { useRef, useState } from "react";
+import { useFile } from "./useFile";
 
 export function useAudio() {
+  const { uploadFile } = useFile();
+
   const [isStart, setIsStart] = useState(false);
   const [stream, setStream] = useState(null);
   const [chunks, setchunks] = useState([]);
@@ -63,6 +66,9 @@ export function useAudio() {
       const getAudioBlob = new Blob(chunks, { type: "audio/wav" });
       const audioUrl = URL.createObjectURL(getAudioBlob);
       console.log("AAA", getAudioBlob);
+
+      uploadFile(getAudioBlob);
+
       setAudioBlob(getAudioBlob);
       setAudioUrl(audioUrl);
       setchunks([]);
