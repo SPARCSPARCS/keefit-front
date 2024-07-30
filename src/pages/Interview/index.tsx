@@ -220,27 +220,39 @@ export function InterviewPage() {
           <div
             css={css({
               display: "flex",
+              position: "relative",
               flexDirection: "column",
               gap: "1rem",
               justifyContent: "center",
               alignItems: "center",
+              height: "260px",
+              marginBottom: "2rem",
             })}
           >
             <video
               id="inputVideo"
               style={{
+                position: "absolute",
                 width: "380px",
+                height: "260px",
                 borderRadius: "2rem",
               }}
               ref={videoRef}
             ></video>
 
-            <p css={css({ color: "#fff" })}>
-              {Math.abs(faceDeg) > 10 ? "정면울 바라봐주세요" : ""}
+            <p
+              css={css({
+                color: "#fff",
+                position: "absolute",
+                bottom: "1rem",
+                width: "320px",
+                textAlign: "center",
+              })}
+            >
+              {Math.abs(faceDeg) > 10 ? "정면울 보세요" : ""}
             </p>
-
-            <DecibelCircle decibel={decibel} />
           </div>
+          <DecibelCircle decibel={decibel} />
 
           {/* {audioUrl != "" && <Button onClick={upload}>업로드</Button>} */}
 
@@ -251,7 +263,9 @@ export function InterviewPage() {
               right: "1rem",
             }}
           >
-            <Button onClick={record}>{isStart ? "중단" : "인터뷰 시작"}</Button>
+            <Button onClick={record}>
+              {isStart ? "제출하기" : "인터뷰 시작"}
+            </Button>
           </div>
         </Funnel>
       </div>
