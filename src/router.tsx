@@ -9,6 +9,8 @@ import {
 import { InterviewPage } from "./pages/Interview";
 import { MainPage } from "./pages/Main";
 import { ResultPage } from "./pages/Result";
+import { FormNamePage } from "./pages/User/FormName";
+import { FormMajorPage } from "./pages/User/FormMajor";
 
 export const router = createBrowserRouter([
   {
@@ -22,5 +24,13 @@ export const router = createBrowserRouter([
   {
     path: "result",
     Component: ResultPage,
+  },
+  {
+    path: "user/name",
+    Component: FormNamePage,
+  },
+  {
+    path: "user/major",
+    Component: FormMajorPage,
   },
 ]);

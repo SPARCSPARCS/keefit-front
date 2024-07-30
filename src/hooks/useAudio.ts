@@ -10,16 +10,12 @@ export function useAudio() {
   const [audioUrl, setAudioUrl] = useState("");
   const [audioBlob, setAudioBlob] = useState<Blob>();
   const [decibel, setDecibel] = useState(0);
-
-  //   const [analyser, setAnalyser] = useState<AnalyserNode>();
-  //   const [dataArray, setDataArray] = useState<Uint8Array>();
   const [source, setSource] = useState<MediaStreamAudioSourceNode>();
 
   const mediaRecorder = useRef(null);
   const analyser = useRef(null);
   const dataArray = useRef<Uint8Array>(null);
   const requestAnimation = useRef(null);
-  //   const decibel = useRef(0);
 
   const startRecord = async () => {
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -29,13 +25,12 @@ export function useAudio() {
     const audioContext = new window.AudioContext();
     const getSource = audioContext.createMediaStreamSource(stream);
     analyser.current = audioContext.createAnalyser();
-
     analyser.current.fftSize = 128;
+
     const bufferLength = analyser.current.fftSize;
     dataArray.current = new Uint8Array(bufferLength);
 
     getSource.connect(analyser.current);
-
     setSource(getSource);
 
     mediaRecorder.current.ondataavailable = (e) => {

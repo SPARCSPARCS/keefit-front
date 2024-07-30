@@ -36,7 +36,7 @@ export function MainPage() {
         >
           <Button
             style={{ width: "100%" }}
-            onClick={() => navigate("/interview")}
+            onClick={() => navigate("/user/name")}
           >
             시작하기
           </Button>
