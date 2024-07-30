@@ -14,7 +14,7 @@ export function ShowRecruitment({ onNext }: { onNext?: any }) {
         style={{
           position: "fixed",
           top: "0",
-          left: "0",
+          left: "0.5rem",
           padding: "1rem",
         }}
       >

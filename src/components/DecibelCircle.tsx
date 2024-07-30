@@ -6,7 +6,7 @@ export function DecibelCircle({ decibel }: { decibel?: number }) {
       style={{
         width: decibel / 1,
         height: decibel / 1,
-        backgroundColor: "#000",
+        backgroundColor: "#fff",
         borderRadius: 500,
       }}
     ></div>

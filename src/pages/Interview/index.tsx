@@ -155,6 +155,8 @@ export function InterviewPage() {
           alignItems: "center",
           width: "100%",
           height: "100%",
+          backgroundColor: activePage == "Record" ? "#000" : "#fff",
+          transition: "0.7s",
         })}
       >
         <Funnel isOpen={activePage == "InputUrl"}>
@@ -179,7 +181,11 @@ export function InterviewPage() {
             }}
           >
             {isStart && (
-              <h2>
+              <h2
+                css={css({
+                  color: "#fff",
+                })}
+              >
                 {questions.length > 0 && <>{questions[nowQuestionIndex]}</>}
               </h2>
             )}
@@ -189,8 +195,9 @@ export function InterviewPage() {
             style={{
               position: "fixed",
               top: "0",
-              left: "0",
+              left: "0.5rem",
               padding: "1rem",
+              color: "#fff",
             }}
           >
             {nowQuestionIndex == -1 && (
@@ -231,7 +238,9 @@ export function InterviewPage() {
               ref={videoRef}
             ></video>
 
-            <p>{Math.abs(faceDeg) > 10 ? "정면울 바라봐주세요" : ""}</p>
+            <p css={css({ color: "#fff" })}>
+              {Math.abs(faceDeg) > 10 ? "정면울 바라봐주세요" : ""}
+            </p>
 
             <DecibelCircle decibel={decibel} />
           </div>
