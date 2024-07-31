@@ -3,10 +3,11 @@ export function TopTitleBody({ children }: any) {
     <div
       style={{
         position: "fixed",
-        top: "0",
+        top: "1rem",
         left: "0.5rem",
         padding: "1rem",
-        paddingTop: "2rem",
+        paddingTop: "2.5rem",
+        zIndex: 999,
       }}
     >
       {children}

@@ -6,6 +6,8 @@ import { useInterviewStore } from "../../features/store";
 import { css, keyframes } from "@emotion/react";
 import { Title } from "../../components/Title";
 import { TopTitleBody } from "../../components/TopTitleBody";
+import { isLocal } from "../../utils/isLocal";
+import { DEV_SERVER_PYTHON_API, PROD_SERVER_PYTHON_API } from "../../api/axois";
 
 export function InputUrl({ onNext }: { onNext?: any }) {
   const [value, setValue] = useState("");
@@ -18,8 +20,12 @@ export function InputUrl({ onNext }: { onNext?: any }) {
 
   const handleClickNext = async () => {
     setShowLoad(true);
+    const url = isLocal()
+      ? `${DEV_SERVER_PYTHON_API}/test/url`
+      : `${PROD_SERVER_PYTHON_API}/test/url`;
+
     try {
-      const response = await axios.get("http://127.0.0.1:8000/test/url", {
+      const response = await axios.get(url, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

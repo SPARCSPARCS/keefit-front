@@ -7,6 +7,7 @@ import { css, keyframes } from "@emotion/react";
 import { Title } from "../../components/Title";
 import { TopTitleBody } from "../../components/TopTitleBody";
 import { useNavigate } from "react-router-dom";
+import { TopNav } from "../../components/Nav";
 
 export function FormMajorPage() {
   const navigate = useNavigate();
@@ -15,10 +16,17 @@ export function FormMajorPage() {
   const [showLoad, setShowLoad] = useState(false);
 
   const setUserMajor = useUserStore((state: any) => state.setUserMajor);
+  const userMajor = useUserStore((state: any) => state.userMajor);
 
   const handleClickSend = () => {
-    setUserMajor(value);
     navigate("/interview");
+  };
+
+  const handleKeyDown = (e) => {
+    console.log(e.code == "Enter");
+    if (e.code == "Enter") {
+      navigate("/interview");
+    }
   };
 
   return (
@@ -31,10 +39,10 @@ export function FormMajorPage() {
         height: "100%",
       })}
     >
+      <TopNav onPrev={() => navigate("/user/name")} />
       <TopTitleBody>
         <Title animationDelay="0">전공을 입력해주세요</Title>
       </TopTitleBody>
-
       <div
         style={{
           position: "fixed",
@@ -50,11 +58,11 @@ export function FormMajorPage() {
           다음
         </Button>
       </div>
-
       <Input
         placeholder="산업디자인학과"
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
+        value={userMajor}
+        onKeyDown={handleKeyDown}
+        onChange={(e) => setUserMajor(e.target.value)}
       ></Input>
     </div>
   );

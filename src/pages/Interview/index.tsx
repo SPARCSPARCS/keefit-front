@@ -15,6 +15,8 @@ import { CreateQuestion } from "./CreateQuestion";
 import * as vision from "@mediapipe/tasks-vision";
 import { Title } from "../../components/Title";
 import { TopTitleBody } from "../../components/TopTitleBody";
+import { TopNav } from "../../components/Nav";
+import { GetNews } from "./GetNews";
 
 export function InterviewPage() {
   const navigate = useNavigate();
@@ -23,7 +25,7 @@ export function InterviewPage() {
     useAudio();
   const { uploadFile } = useFile();
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const [activePage, setActivePage] = useState("InputUrl");
+  const [activePage, setActivePage] = useState("GetNews");
   const [nowPageIndex, setNowPageIndex] = useState(0);
   const [nowQuestionIndex, setNowQuestionIndex] = useState(-1);
   const [webcamRunning, setWebcamRunning] = useState(false);
@@ -31,7 +33,13 @@ export function InterviewPage() {
   const [faceLandmarker, setFaceLandmarker] = useState<any>();
   const [faceDeg, setFaceDeg] = useState(0);
 
-  const pages = ["InputUrl", "ShowRecruitment", "CreateQuestion", "Record"];
+  const pages = [
+    "GetNews",
+    "InputUrl",
+    "ShowRecruitment",
+    "CreateQuestion",
+    "Record",
+  ];
 
   const recruitment = useInterviewStore((state: any) => state.recruitment);
   const questions = useInterviewStore((state: any) => state.questions);
@@ -54,6 +62,19 @@ export function InterviewPage() {
 
     setActivePage(pages[index + 1]);
     setNowPageIndex((index) => index + 1);
+  };
+
+  const handleClickPrevButton = () => {
+    if (nowPageIndex == 0) {
+      navigate("/user/major");
+    }
+
+    const index = pages.findIndex((item) => {
+      return item == activePage;
+    });
+
+    setActivePage(pages[index - 1]);
+    setNowPageIndex((index) => index - 1);
   };
 
   const record = async () => {
@@ -149,6 +170,8 @@ export function InterviewPage() {
 
   return (
     <>
+      {activePage != "Record" && <TopNav onPrev={handleClickPrevButton} />}
+
       <Progress progress={(nowPageIndex / pages.length) * 100}></Progress>
       <div
         css={css({
@@ -161,6 +184,10 @@ export function InterviewPage() {
           transition: "0.7s",
         })}
       >
+        <Funnel isOpen={activePage == "GetNews"}>
+          <GetNews onNext={handleClickNextButton}></GetNews>
+        </Funnel>
+
         <Funnel isOpen={activePage == "InputUrl"}>
           <InputUrl onNext={handleClickNextButton}></InputUrl>
         </Funnel>
@@ -204,27 +231,39 @@ export function InterviewPage() {
           <div
             css={css({
               display: "flex",
+              position: "relative",
               flexDirection: "column",
               gap: "1rem",
               justifyContent: "center",
               alignItems: "center",
+              height: "260px",
+              marginBottom: "2rem",
             })}
           >
             <video
               id="inputVideo"
               style={{
+                position: "absolute",
                 width: "380px",
+                height: "260px",
                 borderRadius: "2rem",
               }}
               ref={videoRef}
             ></video>
 
-            <p css={css({ color: "#fff" })}>
-              {Math.abs(faceDeg) > 10 ? "정면울 바라봐주세요" : ""}
+            <p
+              css={css({
+                color: "#fff",
+                position: "absolute",
+                bottom: "1rem",
+                width: "320px",
+                textAlign: "center",
+              })}
+            >
+              {Math.abs(faceDeg) > 10 ? "정면울 보세요" : ""}
             </p>
-
-            <DecibelCircle decibel={decibel} />
           </div>
+          <DecibelCircle decibel={decibel} />
 
           {/* {audioUrl != "" && <Button onClick={upload}>업로드</Button>} */}
 
@@ -235,7 +274,9 @@ export function InterviewPage() {
               right: "1rem",
             }}
           >
-            <Button onClick={record}>{isStart ? "중단" : "인터뷰 시작"}</Button>
+            <Button onClick={record}>
+              {isStart ? "제출하기" : "인터뷰 시작"}
+            </Button>
           </div>
         </Funnel>
       </div>

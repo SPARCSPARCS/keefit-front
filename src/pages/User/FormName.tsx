@@ -7,18 +7,25 @@ import { css, keyframes } from "@emotion/react";
 import { Title } from "../../components/Title";
 import { TopTitleBody } from "../../components/TopTitleBody";
 import { useNavigate } from "react-router-dom";
+import { TopNav } from "../../components/Nav";
 
 export function FormNamePage() {
   const navigate = useNavigate();
 
-  const [value, setValue] = useState("");
   const [showLoad, setShowLoad] = useState(false);
 
   const setUserName = useUserStore((state: any) => state.setUserName);
+  const userName = useUserStore((state: any) => state.userName);
 
   const handleClickSendName = () => {
-    setUserName(value);
     navigate("/user/major");
+  };
+
+  const handleKeyDown = (e) => {
+    console.log(e.code == "Enter");
+    if (e.code == "Enter") {
+      navigate("/user/major");
+    }
   };
 
   return (
@@ -31,6 +38,7 @@ export function FormNamePage() {
         height: "100%",
       })}
     >
+      <TopNav onPrev={() => navigate("/")} />
       <TopTitleBody>
         <Title animationDelay="0">이름을 입력해주세요</Title>
       </TopTitleBody>
@@ -53,8 +61,9 @@ export function FormNamePage() {
 
       <Input
         placeholder="김네이버"
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
+        value={userName}
+        onKeyDown={handleKeyDown}
+        onChange={(e) => setUserName(e.target.value)}
       ></Input>
     </div>
   );

@@ -1,12 +1,8 @@
 import axios from "axios";
+import { isLocal } from "../utils/isLocal";
 
-const isLocal = () => {
-  const whitelist = ["localhost"];
-  if (whitelist.includes(location.hostname)) {
-    return true;
-  }
-  return false;
-};
+export const PROD_SERVER_PYTHON_API = "http://223.130.159.208";
+export const DEV_SERVER_PYTHON_API = "http://127.0.0.1:8000";
 
 const instance = axios.create({
   baseURL: isLocal() ? "http://localhost:8000/api/" : "https://prod",
