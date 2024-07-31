@@ -69,9 +69,19 @@ export function MainPage() {
           alignItems: "center",
           width: "100%",
           height: "100%",
+          flexDirection: "column",
         })}
       >
         <img src="/logo.png" width={"200px"} alt="" />
+
+        <p
+          css={css({
+            fontSize: "1rem",
+            color: "#274029",
+          })}
+        >
+          험난한 취업 여정, 기업에 딱 맞게
+        </p>
       </div>
 
       <div

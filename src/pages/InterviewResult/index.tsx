@@ -6,6 +6,8 @@ import { useInterviewStore, useUserStore } from "../../features/store";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import { BACK_SERVER_API } from "../../api/axois";
+import { TopTitleBody } from "../../components/TopTitleBody";
+import { BounceTitle } from "../../components/Title";
 
 export function ResultPage() {
   const navigate = useNavigate();
@@ -16,6 +18,8 @@ export function ResultPage() {
   const userName = useUserStore((state: any) => state.userName);
 
   const [score, setScore] = useState("0");
+
+  const [isLoad, setIsLoad] = useState(true);
 
   const getResult = async (id) => {
     try {
@@ -28,6 +32,7 @@ export function ResultPage() {
         }
       );
 
+      setIsLoad(false);
       setScore(response.data.jobInterview.totalScore);
 
       // jobInterview
@@ -59,6 +64,17 @@ export function ResultPage() {
   useEffect(() => {
     sendResult();
   }, []);
+
+  if (isLoad) {
+    return (
+      <div>
+        <TopTitleBody>
+          <BounceTitle>직무 Fit</BounceTitle>
+          <BounceTitle>결과를 추합하고 있어요</BounceTitle>
+        </TopTitleBody>
+      </div>
+    );
+  }
 
   return (
     <>

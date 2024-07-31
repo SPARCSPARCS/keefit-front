@@ -149,6 +149,17 @@ export function JobRecord({ onNext }: any) {
         </TopTitleBody>
       )}
 
+      {nowQuestionIndex == -1 && (
+        <TopTitleBody>
+          <Title color="#fff" animationDelay="0">
+            예상 면접을 불러왔어요
+          </Title>
+          <Title color="#fff" animationDelay="0.25">
+            인터뷰 시작을 눌러 시작해 보세요
+          </Title>
+        </TopTitleBody>
+      )}
+
       <audio
         style={{
           display: "none",

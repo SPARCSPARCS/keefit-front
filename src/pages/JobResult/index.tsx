@@ -6,6 +6,8 @@ import { useInterviewStore, useUserStore } from "../../features/store";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import { BACK_SERVER_API } from "../../api/axois";
+import { TopTitleBody } from "../../components/TopTitleBody";
+import { BounceTitle } from "../../components/Title";
 
 export function JobResultPage() {
   const navigate = useNavigate();
@@ -14,22 +16,31 @@ export function JobResultPage() {
   const userName = useUserStore((state: any) => state.userName);
   const userMajor = useUserStore((state: any) => state.userMajor);
   const companyName = useInterviewStore((state: any) => state.companyName);
-  const [score, setScore] = useState("80");
+  const [score, setScore] = useState("0");
+  const [isLoad, setIsLoad] = useState(true);
 
   const getResult = async (id) => {
     try {
-      const response = await axios.get(`${BACK_SERVER_API}/interview/1/${id}`, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await axios.get(
+        `${BACK_SERVER_API}/interview/admin/${id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      setIsLoad(false);
+      setScore(response.data.jobInterview.totalScore);
+
+      // jobInterview
     } catch (error) {}
   };
 
   const sendResult = async () => {
     try {
       const response = await axios.post(
-        `${BACK_SERVER_API}/interview/1`,
+        `${BACK_SERVER_API}/interview/admin`,
         {
           companyName: companyName,
           field: userMajor,
@@ -51,6 +62,17 @@ export function JobResultPage() {
   useEffect(() => {
     sendResult();
   }, []);
+
+  if (isLoad) {
+    return (
+      <div>
+        <TopTitleBody>
+          <BounceTitle>기업 Fit</BounceTitle>
+          <BounceTitle>결과를 추합하고 있어요</BounceTitle>
+        </TopTitleBody>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -87,50 +109,21 @@ export function JobResultPage() {
             justifyContent: "center",
             textAlign: "center",
             width: "100%",
+            flexDirection: "column",
+            backgroundColor: "#ebf5ec",
+            borderRadius: "12px",
           })}
         >
           <h2
             css={css({
               fontSize: "5rem",
-              color: "#261B23",
-              margin: "1rem",
+              color: "#274029",
+              margin: "0.75rem",
             })}
           >
-            👍
+            {score}%
           </h2>
         </div>
-
-        <div
-          css={css({
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            textAlign: "center",
-            width: "100%",
-          })}
-        >
-          <h2
-            css={css({
-              fontSize: "5rem",
-              color: "#261B23",
-              marginTop: "0.5rem",
-            })}
-          >
-            85%
-          </h2>
-        </div>
-
-        {questions.map((item, index) => (
-          <p>
-            {index}: {item}
-          </p>
-        ))}
-
-        {answers.map((item, index) => (
-          <p>
-            answers{index}: {item}
-          </p>
-        ))}
       </div>
 
       <div

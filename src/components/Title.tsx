@@ -53,6 +53,7 @@ export function BounceTitle({ children }: any) {
       css={css({
         lineHeight: "2.25rem",
         animation: `${bounceBounce} 0.9s ease infinite`,
+        margin: 0,
       })}
     >
       {children}

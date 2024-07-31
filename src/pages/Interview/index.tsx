@@ -85,7 +85,7 @@ export function InterviewPage() {
 
     if (!isStart) {
       setNowQuestionIndex((index) => index + 1);
-      if (nowQuestionIndex >= 4) {
+      if (nowQuestionIndex >= 1) {
         navigate("/interview/result");
 
         return false;
@@ -102,7 +102,7 @@ export function InterviewPage() {
 
       await startRecord();
     } else {
-      if (nowQuestionIndex >= 4) {
+      if (nowQuestionIndex >= 1) {
         navigate("/interview/result");
 
         return false;

@@ -25,7 +25,8 @@ const buttonStyle = css({
   flexDirection: "row",
   gap: "0.5rem",
   ":hover": {
-    backgroundColor: "#3B813E",
+    backgroundColor: "#539156",
+    transform: "translateX(4px)",
   },
 });
 

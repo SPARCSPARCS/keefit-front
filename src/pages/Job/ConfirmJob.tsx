@@ -4,7 +4,7 @@ import { Button } from "../../components/Button";
 import axios from "axios";
 import { useInterviewStore } from "../../features/store";
 import { css, keyframes } from "@emotion/react";
-import { Title } from "../../components/Title";
+import { BounceTitle, Title } from "../../components/Title";
 import { TopTitleBody } from "../../components/TopTitleBody";
 import { isLocal } from "../../utils/isLocal";
 import { DEV_SERVER_PYTHON_API, PROD_SERVER_PYTHON_API } from "../../api/axois";
@@ -16,6 +16,8 @@ export function ConfirmJob({ onNext }: { onNext?: any }) {
   const recruitment = useInterviewStore((state: any) => state.recruitment);
   const jobNews = useInterviewStore((state: any) => state.jobNews);
   const [keywordArray, setKeywordArray] = useState([]);
+
+  const [isLoad, setIsLoad] = useState(true);
 
   const setRecruitment = useInterviewStore(
     (state: any) => state.setRecruitment
@@ -43,6 +45,7 @@ export function ConfirmJob({ onNext }: { onNext?: any }) {
           },
         }
       );
+      setIsLoad(false);
 
       setKeywordArray([...getKeyword.data.result]);
     } catch (error) {}
@@ -52,17 +55,28 @@ export function ConfirmJob({ onNext }: { onNext?: any }) {
     getKey();
   }, []);
 
+  if (isLoad) {
+    return (
+      <div>
+        <TopTitleBody>
+          <BounceTitle>키워드를 찾고 있어요</BounceTitle>
+        </TopTitleBody>
+      </div>
+    );
+  }
+
   return (
     <div>
       <TopTitleBody>
         <Title animationDelay="0">2단계</Title>
-        <Title animationDelay="0.15">기업 Fit을 찾아볼까요</Title>
+        <Title animationDelay="0.15">이제 기업 Fit을 찾아볼까요</Title>
       </TopTitleBody>
 
-      <p>주요 키워드를 바탕으로 질문이 생성돼요</p>
-      {keywordArray.map((item) => (
-        <b style={{ color: "#000" }}>{item}, </b>
-      ))}
+      <p css={css({ fontSize: "2rem", textAlign: "center", padding: "2rem" })}>
+        {keywordArray.map((item) => (
+          <b style={{ color: "#000" }}>{item}, </b>
+        ))}
+      </p>
 
       <div
         style={{
