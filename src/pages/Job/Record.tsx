@@ -187,6 +187,7 @@ export function JobRecord({ onNext }: any) {
             width: "380px",
             height: "260px",
             borderRadius: "2rem",
+            outline: `${decibel - 125}px solid #fff`,
           }}
           ref={videoRef}
         ></video>
@@ -203,7 +204,6 @@ export function JobRecord({ onNext }: any) {
           {Math.abs(faceDeg) > 10 ? "정면울 보세요" : ""}
         </p>
       </div>
-      <DecibelCircle decibel={decibel} />
 
       <div
         style={{

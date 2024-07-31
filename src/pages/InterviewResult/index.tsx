@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, GrayButton } from "../../components/Button";
-import { css } from "@emotion/react";
+import { css, keyframes } from "@emotion/react";
 import { useNavigate } from "react-router-dom";
 import { useInterviewStore, useUserStore } from "../../features/store";
 import axios from "axios";
@@ -8,6 +8,18 @@ import { v4 as uuidv4 } from "uuid";
 import { BACK_SERVER_API } from "../../api/axois";
 import { TopTitleBody } from "../../components/TopTitleBody";
 import { BounceTitle } from "../../components/Title";
+import { Progress, ResultProgress } from "../../components/Progress";
+
+const rotate = keyframes`
+  0% {
+    transform: rotateZ(10deg);
+  }
+  50% {
+    transform: rotateZ(-20deg) scale(1.3);
+  }  100% {
+    transform: rotateZ(10deg);
+  }
+`;
 
 export function ResultPage() {
   const navigate = useNavigate();
@@ -18,8 +30,11 @@ export function ResultPage() {
   const userName = useUserStore((state: any) => state.userName);
 
   const [score, setScore] = useState("0");
+  const [scoreList, setScoreList] = useState([0, 0]);
 
   const [isLoad, setIsLoad] = useState(true);
+
+  const listTitle = ["업무수행능력", "지식중요도"];
 
   const getResult = async (id) => {
     try {
@@ -34,6 +49,9 @@ export function ResultPage() {
 
       setIsLoad(false);
       setScore(response.data.jobInterview.totalScore);
+      if (response.data.jobInterview.score.length > 1) {
+        setScoreList([...response.data.jobInterview.score]);
+      }
 
       // jobInterview
     } catch (error) {}
@@ -109,6 +127,7 @@ export function ResultPage() {
               fontSize: "5rem",
               color: "#261B23",
               margin: "1rem",
+              animation: `${rotate} 0.9s ease infinite`,
             })}
           >
             👍
@@ -122,18 +141,51 @@ export function ResultPage() {
             justifyContent: "center",
             textAlign: "center",
             width: "100%",
+            flexDirection: "column",
+            backgroundColor: "#ebf5ec",
+            borderRadius: "12px",
+            marginBottom: "2rem",
           })}
         >
           <h2
             css={css({
-              fontSize: "5rem",
-              color: "#261B23",
-              marginTop: "0.5rem",
+              fontSize: "4rem",
+              color: "#274029",
+              margin: "0.75rem",
             })}
           >
             {score}%
           </h2>
         </div>
+
+        {scoreList.map((item, idx) => (
+          <div
+            css={css({
+              display: "flex",
+              flexDirection: "row",
+              width: "100%",
+              alignItems: "center",
+              marginBottom: "0.5rem",
+            })}
+          >
+            <div
+              css={css({
+                flex: 2,
+              })}
+            >
+              <b style={{ color: "#66AD6A" }}>{listTitle[idx]}</b>
+            </div>
+
+            <div
+              css={css({
+                flex: 5,
+                width: "100%",
+              })}
+            >
+              <ResultProgress progress={item}></ResultProgress>
+            </div>
+          </div>
+        ))}
 
         {/* {questions.map((item, index) => (
           <p>

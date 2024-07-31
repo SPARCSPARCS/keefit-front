@@ -1,10 +1,21 @@
-import { css } from "@emotion/react";
+import { css, keyframes } from "@emotion/react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../components/Button";
 import axios from "axios";
 import { BACK_SERVER_API } from "../../api/axois";
 import { useUserStore } from "../../features/store";
+
+const rotate = keyframes`
+  0% {
+    transform: rotateZ(0deg);
+  }
+  50% {
+    transform: rotateZ(-6deg) scale(1.01);
+  }  100% {
+    transform: rotateZ(0deg);
+  }
+`;
 
 export function MainPage() {
   const navigate = useNavigate();
@@ -72,12 +83,20 @@ export function MainPage() {
           flexDirection: "column",
         })}
       >
-        <img src="/logo.png" width={"200px"} alt="" />
+        <img
+          src="/logo.png"
+          width={"200px"}
+          css={css({
+            animation: `${rotate} 0.9s ease infinite`,
+          })}
+          alt=""
+        />
 
         <p
           css={css({
             fontSize: "1rem",
             color: "#274029",
+            zIndex: 9000,
           })}
         >
           험난한 취업 여정, 기업에 딱 맞게

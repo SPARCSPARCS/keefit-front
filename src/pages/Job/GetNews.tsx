@@ -83,6 +83,7 @@ export function GetNews({ onNext }: { onNext?: any }) {
           position: "absolute",
           top: "5rem",
           left: 0,
+          width: "100%",
         }}
       >
         <Checkbox

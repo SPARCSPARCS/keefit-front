@@ -116,7 +116,7 @@ export function JobResultPage() {
         >
           <h2
             css={css({
-              fontSize: "5rem",
+              fontSize: "4rem",
               color: "#274029",
               margin: "0.75rem",
             })}
