@@ -9,10 +9,30 @@ import { isLocal } from "../../utils/isLocal";
 
 export function CreateCompanyJobp({ onNext }: { onNext?: any }) {
   const recruitment = useInterviewStore((state: any) => state.recruitment);
-  const setQuestions = useInterviewStore((state: any) => state.setQuestions);
+  const jobNews = useInterviewStore((state: any) => state.jobNews);
+  const setQuestions2 = useInterviewStore((state: any) => state.setQuestions2);
 
   const loadQuestions = async () => {
+    const url = isLocal()
+      ? `${DEV_SERVER_PYTHON_API}/keyword`
+      : `${PROD_SERVER_PYTHON_API}/keyword`;
+
     try {
+      const getKeyword = await axios.post(
+        url,
+        {
+          content1: jobNews,
+          content2: recruitment,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      setQuestions2([...getKeyword.data.result]);
+
       onNext();
     } catch (error) {}
   };

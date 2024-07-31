@@ -31,7 +31,7 @@ export function JobRecord({ onNext }: any) {
   const [faceDeg, setFaceDeg] = useState(0);
 
   const recruitment = useInterviewStore((state: any) => state.recruitment);
-  const questions = useInterviewStore((state: any) => state.questions);
+  const questions2 = useInterviewStore((state: any) => state.questions2);
 
   const lastVideoTime = useRef(0);
   const videoRef = useRef(null);
@@ -49,16 +49,16 @@ export function JobRecord({ onNext }: any) {
 
     if (!isStart) {
       setNowQuestionIndex((index) => index + 1);
-      if (nowQuestionIndex >= totalQuestionCount - 1) {
-        navigate("/result");
+      if (nowQuestionIndex >= questions2.length - 1) {
+        navigate("/job/result");
 
         return false;
       }
 
       await startRecord();
     } else {
-      if (nowQuestionIndex >= totalQuestionCount - 1) {
-        navigate("/result");
+      if (nowQuestionIndex >= questions2.length - 1) {
+        navigate("/job/result");
 
         return false;
       }
@@ -144,7 +144,7 @@ export function JobRecord({ onNext }: any) {
       {isStart && (
         <TopTitleBody>
           <Title color="#fff" animationDelay="0">
-            {questions.length > 0 && <>{questions[nowQuestionIndex]}</>}
+            {questions2.length > 0 && <>{questions2[nowQuestionIndex]}</>}
           </Title>
         </TopTitleBody>
       )}

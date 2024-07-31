@@ -34,14 +34,19 @@ const styles = {
 function Checkbox({
   options,
   onRefresh,
+  onSelect,
 }: {
   options: OptionsType[];
   onRefresh?: any;
+  onSelect?: any;
 }) {
   const [selectedOption, setSelectedOption] = useState(null);
 
   const handleSelect = (option) => {
     setSelectedOption(option);
+    try {
+      onSelect(option.label);
+    } catch (error) {}
   };
 
   return (
