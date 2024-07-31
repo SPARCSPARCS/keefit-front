@@ -91,6 +91,15 @@ export function InterviewPage() {
         return false;
       }
 
+      // var lang = "ko-KR";
+      // var Speecha = new SpeechSynthesisUtterance(questions[nowQuestionIndex]);
+
+      // Speecha.lang = lang;
+      // Speecha.pitch = 1;
+      // Speecha.rate = 1;
+
+      // window.speechSynthesis.speak(Speecha);
+
       await startRecord();
     } else {
       if (nowQuestionIndex >= 4) {
@@ -286,7 +295,7 @@ export function InterviewPage() {
             }}
           >
             <Button onClick={record}>
-              {isStart ? "제출하기" : "인터뷰 시작"}
+              {isStart ? "제출하기" : "다음 질문"}
             </Button>
           </div>
         </Funnel>

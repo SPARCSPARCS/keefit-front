@@ -4,6 +4,8 @@ import { isLocal } from "../utils/isLocal";
 export const PROD_SERVER_PYTHON_API = "https://sparcs.cartesiancs.com";
 export const DEV_SERVER_PYTHON_API = "http://127.0.0.1:8000";
 
+export const BACK_SERVER_API = "http://10.10.0.10:8080";
+
 const instance = axios.create({
   baseURL: isLocal() ? "http://localhost:8000/api/" : "https://prod",
   // headers: { 'X-Custom-Header': 'foobar' }

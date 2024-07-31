@@ -2,24 +2,28 @@ import { useEffect, useState } from "react";
 import { Button, GrayButton } from "../../components/Button";
 import { css } from "@emotion/react";
 import { useNavigate } from "react-router-dom";
-import { useInterviewStore } from "../../features/store";
+import { useInterviewStore, useUserStore } from "../../features/store";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
+import { BACK_SERVER_API } from "../../api/axois";
 
 export function ResultPage() {
   const navigate = useNavigate();
   const questions = useInterviewStore((state: any) => state.questions);
   const answers = useInterviewStore((state: any) => state.answers);
+  const userMajor = useUserStore((state: any) => state.userMajor);
+  const companyName = useInterviewStore((state: any) => state.companyName);
 
-  const sendResult = async () => {
+  const getResult = async (id) => {
     try {
       const response = await axios.post(
-        `http://svr/interview`,
+        `${BACK_SERVER_API}/interview/1/${id}`,
         {
-          companyName: "toss",
-          field: "직무",
+          companyName: companyName,
+          field: userMajor,
           questions: questions,
           answers: answers,
+          attitudeScore: 4,
         },
         {
           headers: {
@@ -27,6 +31,28 @@ export function ResultPage() {
           },
         }
       );
+    } catch (error) {}
+  };
+
+  const sendResult = async () => {
+    try {
+      const response = await axios.post(
+        `${BACK_SERVER_API}/interview/1`,
+        {
+          companyName: companyName,
+          field: userMajor,
+          questions: questions,
+          answers: answers,
+          attitudeScore: 4,
+        },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      getResult(response.data.interviewID);
     } catch (error) {}
   };
 
