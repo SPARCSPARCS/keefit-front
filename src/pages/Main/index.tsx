@@ -5,6 +5,7 @@ import { Button } from "../../components/Button";
 import axios from "axios";
 import { BACK_SERVER_API } from "../../api/axois";
 import { useUserStore } from "../../features/store";
+import { Settings } from "lucide-react";
 
 const rotate = keyframes`
   0% {
@@ -14,6 +15,15 @@ const rotate = keyframes`
     transform: rotateZ(-6deg) scale(1.01);
   }  100% {
     transform: rotateZ(0deg);
+  }
+`;
+
+const rotateAll = keyframes`
+  0% {
+    transform: rotateZ(0deg);
+  }
+ 100% {
+    transform: rotateZ(360deg);
   }
 `;
 
@@ -73,6 +83,23 @@ export function MainPage() {
 
   return (
     <>
+      <div
+        css={css({
+          position: "fixed",
+          right: "1rem",
+          top: "1rem",
+        })}
+      >
+        <Settings
+          css={css({
+            color: "#66AD6A",
+            cursor: "pointer",
+            ":hover": {
+              animation: `${rotateAll} 0.9s ease infinite`,
+            },
+          })}
+        />
+      </div>
       <div
         css={css({
           display: "flex",
