@@ -36,6 +36,8 @@ export function JobRecord({ onNext }: any) {
   const lastVideoTime = useRef(0);
   const videoRef = useRef(null);
 
+  const totalQuestionCount = 2;
+
   const setRecruitment = useInterviewStore(
     (state: any) => state.setRecruitment
   );
@@ -47,7 +49,7 @@ export function JobRecord({ onNext }: any) {
 
     if (!isStart) {
       setNowQuestionIndex((index) => index + 1);
-      if (nowQuestionIndex >= 4) {
+      if (nowQuestionIndex >= totalQuestionCount - 1) {
         navigate("/result");
 
         return false;
@@ -55,7 +57,7 @@ export function JobRecord({ onNext }: any) {
 
       await startRecord();
     } else {
-      if (nowQuestionIndex >= 4) {
+      if (nowQuestionIndex >= totalQuestionCount - 1) {
         navigate("/result");
 
         return false;

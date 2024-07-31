@@ -12,6 +12,7 @@ import Checkbox from "../../components/Checkbox";
 
 export function GetNews({ onNext }: { onNext?: any }) {
   const userMajor = useUserStore((state: any) => state.userMajor);
+  const companyName = useInterviewStore((state: any) => state.companyName);
 
   const [list, setList] = useState([]);
 
@@ -26,7 +27,7 @@ export function GetNews({ onNext }: { onNext?: any }) {
           "Content-Type": "application/json",
         },
         params: {
-          query: userMajor,
+          query: `${companyName} ${userMajor}`,
         },
       });
 

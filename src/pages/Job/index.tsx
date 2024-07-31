@@ -17,6 +17,7 @@ import { GetNews } from "./GetNews";
 import { ConfirmJob } from "./ConfirmJob";
 import { CreateCompanyJobp } from "./CreateJob";
 import { JobRecord } from "./Record";
+import { ProcessingResult } from "./ProcessingResult";
 
 export function JobPage() {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ export function JobPage() {
 
   const handleClickNextButton = () => {
     if (nowPageIndex >= pages.length - 1) {
-      navigate("/result");
+      navigate("/job/result");
     }
 
     const index = pages.findIndex((item) => {
@@ -68,6 +69,10 @@ export function JobPage() {
 
         <Funnel isOpen={activePage == "Record"}>
           <JobRecord onNext={handleClickNextButton}></JobRecord>
+        </Funnel>
+
+        <Funnel isOpen={activePage == "ProcessingResult"}>
+          <ProcessingResult onNext={handleClickNextButton}></ProcessingResult>
         </Funnel>
       </div>
     </>

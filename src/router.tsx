@@ -12,6 +12,8 @@ import { ResultPage } from "./pages/InterviewResult";
 import { FormNamePage } from "./pages/User/FormName";
 import { FormMajorPage } from "./pages/User/FormMajor";
 import { JobPage } from "./pages/Job";
+import { FinalPage } from "./pages/Final";
+import { JobResultPage } from "./pages/JobResult";
 
 export const router = createBrowserRouter([
   {
@@ -23,13 +25,22 @@ export const router = createBrowserRouter([
     Component: InterviewPage,
   },
   {
-    path: "result",
+    path: "interview/result",
     Component: ResultPage,
+  },
+  {
+    path: "job/result",
+    Component: JobResultPage,
   },
   {
     path: "job",
     Component: JobPage,
   },
+  {
+    path: "final",
+    Component: FinalPage,
+  },
+
   {
     path: "user/name",
     Component: FormNamePage,

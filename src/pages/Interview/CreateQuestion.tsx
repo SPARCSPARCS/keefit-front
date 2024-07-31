@@ -10,6 +10,9 @@ import { isLocal } from "../../utils/isLocal";
 export function CreateQuestion({ onNext }: { onNext?: any }) {
   const recruitment = useInterviewStore((state: any) => state.recruitment);
   const setQuestions = useInterviewStore((state: any) => state.setQuestions);
+  const setCompanyName = useInterviewStore(
+    (state: any) => state.setCompanyName
+  );
 
   const loadQuestions = async () => {
     try {
@@ -29,7 +32,8 @@ export function CreateQuestion({ onNext }: { onNext?: any }) {
         }
       );
 
-      setQuestions([...getQuestions.data.result]);
+      setQuestions([...getQuestions.data.result.questions]);
+      setCompanyName(getQuestions.data.result.companyName);
       onNext();
     } catch (error) {}
   };

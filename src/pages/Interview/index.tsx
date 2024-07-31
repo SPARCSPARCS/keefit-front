@@ -54,7 +54,7 @@ export function InterviewPage() {
 
   const handleClickNextButton = () => {
     if (nowPageIndex >= pages.length - 1) {
-      navigate("/result");
+      navigate("/interview/result");
     }
 
     const index = pages.findIndex((item) => {
@@ -86,7 +86,7 @@ export function InterviewPage() {
     if (!isStart) {
       setNowQuestionIndex((index) => index + 1);
       if (nowQuestionIndex >= 4) {
-        navigate("/result");
+        navigate("/interview/result");
 
         return false;
       }
@@ -94,7 +94,7 @@ export function InterviewPage() {
       await startRecord();
     } else {
       if (nowQuestionIndex >= 4) {
-        navigate("/result");
+        navigate("/interview/result");
 
         return false;
       }
