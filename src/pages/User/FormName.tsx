@@ -21,6 +21,13 @@ export function FormNamePage() {
     navigate("/user/major");
   };
 
+  const handleKeyDown = (e) => {
+    console.log(e.code == "Enter");
+    if (e.code == "Enter") {
+      navigate("/user/major");
+    }
+  };
+
   return (
     <div
       css={css({
@@ -55,6 +62,7 @@ export function FormNamePage() {
       <Input
         placeholder="김네이버"
         value={userName}
+        onKeyDown={handleKeyDown}
         onChange={(e) => setUserName(e.target.value)}
       ></Input>
     </div>

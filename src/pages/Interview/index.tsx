@@ -16,6 +16,7 @@ import * as vision from "@mediapipe/tasks-vision";
 import { Title } from "../../components/Title";
 import { TopTitleBody } from "../../components/TopTitleBody";
 import { TopNav } from "../../components/Nav";
+import { GetNews } from "./GetNews";
 
 export function InterviewPage() {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ export function InterviewPage() {
     useAudio();
   const { uploadFile } = useFile();
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const [activePage, setActivePage] = useState("InputUrl");
+  const [activePage, setActivePage] = useState("GetNews");
   const [nowPageIndex, setNowPageIndex] = useState(0);
   const [nowQuestionIndex, setNowQuestionIndex] = useState(-1);
   const [webcamRunning, setWebcamRunning] = useState(false);
@@ -32,7 +33,13 @@ export function InterviewPage() {
   const [faceLandmarker, setFaceLandmarker] = useState<any>();
   const [faceDeg, setFaceDeg] = useState(0);
 
-  const pages = ["InputUrl", "ShowRecruitment", "CreateQuestion", "Record"];
+  const pages = [
+    "GetNews",
+    "InputUrl",
+    "ShowRecruitment",
+    "CreateQuestion",
+    "Record",
+  ];
 
   const recruitment = useInterviewStore((state: any) => state.recruitment);
   const questions = useInterviewStore((state: any) => state.questions);
@@ -177,6 +184,10 @@ export function InterviewPage() {
           transition: "0.7s",
         })}
       >
+        <Funnel isOpen={activePage == "GetNews"}>
+          <GetNews onNext={handleClickNextButton}></GetNews>
+        </Funnel>
+
         <Funnel isOpen={activePage == "InputUrl"}>
           <InputUrl onNext={handleClickNextButton}></InputUrl>
         </Funnel>

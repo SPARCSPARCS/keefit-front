@@ -22,6 +22,13 @@ export function FormMajorPage() {
     navigate("/interview");
   };
 
+  const handleKeyDown = (e) => {
+    console.log(e.code == "Enter");
+    if (e.code == "Enter") {
+      navigate("/interview");
+    }
+  };
+
   return (
     <div
       css={css({
@@ -54,6 +61,7 @@ export function FormMajorPage() {
       <Input
         placeholder="산업디자인학과"
         value={userMajor}
+        onKeyDown={handleKeyDown}
         onChange={(e) => setUserMajor(e.target.value)}
       ></Input>
     </div>
