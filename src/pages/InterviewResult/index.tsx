@@ -13,24 +13,21 @@ export function ResultPage() {
   const answers = useInterviewStore((state: any) => state.answers);
   const userMajor = useUserStore((state: any) => state.userMajor);
   const companyName = useInterviewStore((state: any) => state.companyName);
+  const userName = useUserStore((state: any) => state.userName);
+
+  const [score, setScore] = useState("80");
 
   const getResult = async (id) => {
     try {
-      const response = await axios.post(
-        `${BACK_SERVER_API}/interview/1/${id}`,
-        {
-          companyName: companyName,
-          field: userMajor,
-          questions: questions,
-          answers: answers,
-          attitudeScore: 4,
+      const response = await axios.get(`${BACK_SERVER_API}/interview/1/${id}`, {
+        headers: {
+          "Content-Type": "application/json",
         },
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      });
+
+      setScore(response.data.jobInterview.totalScore);
+
+      // jobInterview
     } catch (error) {}
   };
 
@@ -47,7 +44,7 @@ export function ResultPage() {
         },
         {
           headers: {
-            "Content-Type": "multipart/form-data",
+            "Content-Type": "application/json",
           },
         }
       );
@@ -76,7 +73,7 @@ export function ResultPage() {
             fontSize: "1.5rem",
           })}
         >
-          형준님의 프론트엔드 직업 적합도는?
+          {userName}님의 {userMajor} 직업 적합도는?
         </h2>
 
         <div
@@ -115,7 +112,7 @@ export function ResultPage() {
               marginTop: "0.5rem",
             })}
           >
-            92%
+            {score}%
           </h2>
         </div>
 

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useInterviewStore, useUserStore } from "../../features/store";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
+import { BACK_SERVER_API } from "../../api/axois";
 
 export function JobResultPage() {
   const navigate = useNavigate();
@@ -13,22 +14,37 @@ export function JobResultPage() {
   const userName = useUserStore((state: any) => state.userName);
   const userMajor = useUserStore((state: any) => state.userMajor);
   const companyName = useInterviewStore((state: any) => state.companyName);
+  const [score, setScore] = useState("80");
+
+  const getResult = async (id) => {
+    try {
+      const response = await axios.get(`${BACK_SERVER_API}/interview/1/${id}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    } catch (error) {}
+  };
+
   const sendResult = async () => {
     try {
       const response = await axios.post(
-        `http://svr/interview`,
+        `${BACK_SERVER_API}/interview/1`,
         {
-          companyName: "toss",
-          field: "직무",
+          companyName: companyName,
+          field: userMajor,
           questions: questions,
           answers: answers,
+          attitudeScore: 4,
         },
         {
           headers: {
-            "Content-Type": "multipart/form-data",
+            "Content-Type": "application/json",
           },
         }
       );
+
+      getResult(response.data.interviewID);
     } catch (error) {}
   };
 
@@ -100,7 +116,7 @@ export function JobResultPage() {
               marginTop: "0.5rem",
             })}
           >
-            92%
+            85%
           </h2>
         </div>
 
@@ -134,8 +150,8 @@ export function JobResultPage() {
             gap: "1rem",
           })}
         >
-          <Button style={{ width: "100%" }} onClick={() => navigate("/final")}>
-            최종 키핏 확인하기
+          <Button style={{ width: "100%" }} onClick={() => navigate("/")}>
+            홈으로
           </Button>
         </div>
       </div>

@@ -70,7 +70,9 @@ export function MainPage() {
           width: "100%",
           height: "100%",
         })}
-      ></div>
+      >
+        <img src="/logo.png" width={"200px"} alt="" />
+      </div>
 
       <div
         css={css({
