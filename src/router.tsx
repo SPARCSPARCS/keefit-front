@@ -8,9 +8,10 @@ import {
 } from "react-router-dom";
 import { InterviewPage } from "./pages/Interview";
 import { MainPage } from "./pages/Main";
-import { ResultPage } from "./pages/Result";
+import { ResultPage } from "./pages/InterviewResult";
 import { FormNamePage } from "./pages/User/FormName";
 import { FormMajorPage } from "./pages/User/FormMajor";
+import { JobPage } from "./pages/Job";
 
 export const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ export const router = createBrowserRouter([
   {
     path: "result",
     Component: ResultPage,
+  },
+  {
+    path: "job",
+    Component: JobPage,
   },
   {
     path: "user/name",

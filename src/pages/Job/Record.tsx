@@ -5,21 +5,17 @@ import { useAudio } from "../../hooks/useAudio";
 import { useFile } from "../../hooks/useFile";
 import { Modal } from "../../components/Modal";
 import { useInterviewStore } from "../../features/store";
-import { InputUrl } from "./InputUrl";
-import { ShowRecruitment } from "./ShowRecruitment";
 import { Funnel } from "../../components/Funnel";
 import { useNavigate } from "react-router-dom";
 import { Progress } from "../../components/Progress";
 import { DecibelCircle } from "../../components/DecibelCircle";
-import { CreateQuestion } from "./CreateQuestion";
 import * as vision from "@mediapipe/tasks-vision";
 import { Title } from "../../components/Title";
 import { TopTitleBody } from "../../components/TopTitleBody";
 import { TopNav } from "../../components/Nav";
 import { GetNews } from "../Job/GetNews";
-import { CreateJob } from "./CreateJob";
 
-export function InterviewPage() {
+export function JobRecord({ onNext }: any) {
   const navigate = useNavigate();
 
   const { decibel, audioBlob, audioUrl, isStart, stopRecord, startRecord } =
@@ -34,14 +30,6 @@ export function InterviewPage() {
   const [faceLandmarker, setFaceLandmarker] = useState<any>();
   const [faceDeg, setFaceDeg] = useState(0);
 
-  const pages = [
-    "InputUrl",
-    "CreateJob",
-    "ShowRecruitment",
-    "CreateQuestion",
-    "Record",
-  ];
-
   const recruitment = useInterviewStore((state: any) => state.recruitment);
   const questions = useInterviewStore((state: any) => state.questions);
 
@@ -51,32 +39,6 @@ export function InterviewPage() {
   const setRecruitment = useInterviewStore(
     (state: any) => state.setRecruitment
   );
-
-  const handleClickNextButton = () => {
-    if (nowPageIndex >= pages.length - 1) {
-      navigate("/result");
-    }
-
-    const index = pages.findIndex((item) => {
-      return item == activePage;
-    });
-
-    setActivePage(pages[index + 1]);
-    setNowPageIndex((index) => index + 1);
-  };
-
-  const handleClickPrevButton = () => {
-    if (nowPageIndex == 0) {
-      navigate("/user/major");
-    }
-
-    const index = pages.findIndex((item) => {
-      return item == activePage;
-    });
-
-    setActivePage(pages[index - 1]);
-    setNowPageIndex((index) => index - 1);
-  };
 
   const record = async () => {
     if (nowQuestionIndex == -1) {
@@ -177,124 +139,68 @@ export function InterviewPage() {
 
   return (
     <>
-      {activePage != "Record" && <TopNav onPrev={handleClickPrevButton} />}
+      {isStart && (
+        <TopTitleBody>
+          <Title color="#fff" animationDelay="0">
+            {questions.length > 0 && <>{questions[nowQuestionIndex]}</>}
+          </Title>
+        </TopTitleBody>
+      )}
 
-      <Progress progress={(nowPageIndex / pages.length) * 100}></Progress>
+      <audio
+        style={{
+          display: "none",
+        }}
+        src={audioUrl}
+        controls
+      ></audio>
+
       <div
         css={css({
           display: "flex",
+          position: "relative",
+          flexDirection: "column",
+          gap: "1rem",
           justifyContent: "center",
           alignItems: "center",
-          width: "100%",
-          height: "100%",
-          backgroundColor: activePage == "Record" ? "#000" : "#fff",
-          transition: "0.7s",
+          height: "260px",
+          marginBottom: "2rem",
         })}
       >
-        <Funnel isOpen={activePage == "GetNews"}>
-          <GetNews onNext={handleClickNextButton}></GetNews>
-        </Funnel>
+        <video
+          id="inputVideo"
+          style={{
+            position: "absolute",
+            width: "380px",
+            height: "260px",
+            borderRadius: "2rem",
+          }}
+          ref={videoRef}
+        ></video>
 
-        <Funnel isOpen={activePage == "CreateJob"}>
-          <CreateJob onNext={handleClickNextButton}></CreateJob>
-        </Funnel>
-
-        <Funnel isOpen={activePage == "InputUrl"}>
-          <InputUrl onNext={handleClickNextButton}></InputUrl>
-        </Funnel>
-
-        <Funnel isOpen={activePage == "ShowRecruitment"}>
-          <ShowRecruitment onNext={handleClickNextButton}></ShowRecruitment>
-        </Funnel>
-
-        <Funnel isOpen={activePage == "CreateQuestion"}>
-          <CreateQuestion onNext={handleClickNextButton}></CreateQuestion>
-        </Funnel>
-
-        <Funnel isOpen={activePage == "Record"}>
-          {isStart && (
-            <TopTitleBody>
-              <Title color="#fff" animationDelay="0">
-                {questions.length > 0 && <>{questions[nowQuestionIndex]}</>}
-              </Title>
-            </TopTitleBody>
-          )}
-
-          {nowQuestionIndex == -1 && (
-            <TopTitleBody>
-              <Title color="#fff" animationDelay="0">
-                예상면접을 성공적으로 불러왔어요
-              </Title>
-              <Title color="#fff" animationDelay="0.25">
-                면접 시작, 할 수 있어요!
-              </Title>
-            </TopTitleBody>
-          )}
-
-          <audio
-            style={{
-              display: "none",
-            }}
-            src={audioUrl}
-            controls
-          ></audio>
-
-          <div
-            css={css({
-              display: "flex",
-              position: "relative",
-              flexDirection: "column",
-              gap: "1rem",
-              justifyContent: "center",
-              alignItems: "center",
-              height: "260px",
-              marginBottom: "2rem",
-            })}
-          >
-            <video
-              id="inputVideo"
-              style={{
-                position: "absolute",
-                width: "380px",
-                height: "260px",
-                borderRadius: "2rem",
-              }}
-              ref={videoRef}
-            ></video>
-
-            <p
-              css={css({
-                color: "#fff",
-                position: "absolute",
-                bottom: "1rem",
-                width: "320px",
-                textAlign: "center",
-              })}
-            >
-              {Math.abs(faceDeg) > 10 ? "정면울 보세요" : ""}
-            </p>
-          </div>
-          <DecibelCircle decibel={decibel} />
-
-          {/* {audioUrl != "" && <Button onClick={upload}>업로드</Button>} */}
-
-          <div
-            style={{
-              position: "fixed",
-              bottom: "1rem",
-              right: "1rem",
-            }}
-          >
-            <Button onClick={record}>
-              {isStart ? "제출하기" : "인터뷰 시작"}
-            </Button>
-          </div>
-        </Funnel>
+        <p
+          css={css({
+            color: "#fff",
+            position: "absolute",
+            bottom: "1rem",
+            width: "320px",
+            textAlign: "center",
+          })}
+        >
+          {Math.abs(faceDeg) > 10 ? "정면울 보세요" : ""}
+        </p>
       </div>
+      <DecibelCircle decibel={decibel} />
 
-      <Modal onClose={() => setIsOpenModal(false)} isOpen={isOpenModal}>
-        <p>sdfsd</p>
-      </Modal>
+      <div
+        style={{
+          position: "fixed",
+          bottom: "1rem",
+          right: "1rem",
+        }}
+      >
+        <Button onClick={record}>{isStart ? "제출하기" : "인터뷰 시작"}</Button>
+      </div>
     </>
   );
 }

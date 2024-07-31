@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button } from "../../components/Button";
+import { Button, GrayButton } from "../../components/Button";
 import { css } from "@emotion/react";
 import { useNavigate } from "react-router-dom";
 import { useInterviewStore } from "../../features/store";
@@ -120,10 +120,12 @@ export function ResultPage() {
             width: "100%",
 
             padding: "1rem",
+            gap: "1rem",
           })}
         >
-          <Button style={{ width: "100%" }} onClick={() => navigate("/")}>
-            홈으로 가기
+          <GrayButton onClick={() => navigate("/")}>그만두기</GrayButton>
+          <Button style={{ width: "100%" }} onClick={() => navigate("/job")}>
+            기업 Fit 넘어가기
           </Button>
         </div>
       </div>

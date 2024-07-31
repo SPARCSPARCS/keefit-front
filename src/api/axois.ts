@@ -1,7 +1,7 @@
 import axios from "axios";
 import { isLocal } from "../utils/isLocal";
 
-export const PROD_SERVER_PYTHON_API = "http://223.130.159.208";
+export const PROD_SERVER_PYTHON_API = "https://sparcs.cartesiancs.com";
 export const DEV_SERVER_PYTHON_API = "http://127.0.0.1:8000";
 
 const instance = axios.create({
