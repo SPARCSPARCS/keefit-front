@@ -8,7 +8,7 @@ export function TopNav({ onPrev }: { onPrev?: any }) {
     width: "100%",
     alignItems: "center",
     justifyContent: "flex-start",
-    zIndex: 900,
+    zIndex: 9900,
   });
 
   return (

@@ -7,6 +7,7 @@ export function TopTitleBody({ children }: any) {
         left: "0.5rem",
         padding: "1rem",
         paddingTop: "2.5rem",
+        zIndex: 999,
       }}
     >
       {children}
