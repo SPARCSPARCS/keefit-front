@@ -1,6 +1,7 @@
 import { create } from "zustand";
 
 export const useUserStore = create((set) => ({
+  userId: String(Math.random()),
   userName: "",
   userMajor: "",
 

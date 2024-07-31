@@ -59,7 +59,7 @@ export function FormMajorPage() {
         </Button>
       </div>
       <Input
-        placeholder="산업디자인학과"
+        placeholder="프론트엔드"
         value={userMajor}
         onKeyDown={handleKeyDown}
         onChange={(e) => setUserMajor(e.target.value)}

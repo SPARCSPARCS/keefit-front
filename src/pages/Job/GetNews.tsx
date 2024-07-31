@@ -12,6 +12,8 @@ import Checkbox from "../../components/Checkbox";
 
 export function GetNews({ onNext }: { onNext?: any }) {
   const userMajor = useUserStore((state: any) => state.userMajor);
+  const companyName = useInterviewStore((state: any) => state.companyName);
+  const setJobNews = useInterviewStore((state: any) => state.setJobNews);
 
   const [list, setList] = useState([]);
 
@@ -26,7 +28,7 @@ export function GetNews({ onNext }: { onNext?: any }) {
           "Content-Type": "application/json",
         },
         params: {
-          query: userMajor,
+          query: `${companyName} ${userMajor}`,
         },
       });
 
@@ -51,9 +53,14 @@ export function GetNews({ onNext }: { onNext?: any }) {
     } catch (error) {}
   };
 
+  const handleClickItem = (c: string) => {
+    setJobNews(c);
+  };
+
   useEffect(() => {
     getList();
   }, []);
+
   return (
     <div>
       <TopTitleBody>
@@ -76,9 +83,14 @@ export function GetNews({ onNext }: { onNext?: any }) {
           position: "absolute",
           top: "5rem",
           left: 0,
+          width: "100%",
         }}
       >
-        <Checkbox onRefresh={getList} options={list} />
+        <Checkbox
+          onSelect={handleClickItem}
+          onRefresh={getList}
+          options={list}
+        />
       </div>
 
       {list.map((item) => (

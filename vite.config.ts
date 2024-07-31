@@ -4,13 +4,17 @@ import mkcert from "vite-plugin-mkcert";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  server: {
-    https: true,
-  },
   plugins: [
     mkcert(),
     react({
       jsxImportSource: "@emotion/react",
     }),
   ],
+  server: {
+    https: false,
+
+    proxy: {
+      "/api": "http://10.10.0.10:8080",
+    },
+  },
 });

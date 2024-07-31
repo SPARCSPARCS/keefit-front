@@ -16,7 +16,8 @@ import * as vision from "@mediapipe/tasks-vision";
 import { Title } from "../../components/Title";
 import { TopTitleBody } from "../../components/TopTitleBody";
 import { TopNav } from "../../components/Nav";
-import { GetNews } from "./GetNews";
+import { GetNews } from "../Job/GetNews";
+import { CreateJob } from "./CreateJob";
 
 export function InterviewPage() {
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ export function InterviewPage() {
     useAudio();
   const { uploadFile } = useFile();
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const [activePage, setActivePage] = useState("GetNews");
+  const [activePage, setActivePage] = useState("InputUrl");
   const [nowPageIndex, setNowPageIndex] = useState(0);
   const [nowQuestionIndex, setNowQuestionIndex] = useState(-1);
   const [webcamRunning, setWebcamRunning] = useState(false);
@@ -34,8 +35,8 @@ export function InterviewPage() {
   const [faceDeg, setFaceDeg] = useState(0);
 
   const pages = [
-    "GetNews",
     "InputUrl",
+    "CreateJob",
     "ShowRecruitment",
     "CreateQuestion",
     "Record",
@@ -53,7 +54,7 @@ export function InterviewPage() {
 
   const handleClickNextButton = () => {
     if (nowPageIndex >= pages.length - 1) {
-      navigate("/result");
+      navigate("/interview/result");
     }
 
     const index = pages.findIndex((item) => {
@@ -81,16 +82,31 @@ export function InterviewPage() {
     if (nowQuestionIndex == -1) {
       enableCam();
     }
+
     if (!isStart) {
       setNowQuestionIndex((index) => index + 1);
-      if (nowQuestionIndex >= 4) {
-        navigate("/result");
+      if (nowQuestionIndex >= 1) {
+        navigate("/interview/result");
 
         return false;
       }
 
+      // var lang = "ko-KR";
+      // var Speecha = new SpeechSynthesisUtterance(questions[nowQuestionIndex]);
+
+      // Speecha.lang = lang;
+      // Speecha.pitch = 1;
+      // Speecha.rate = 1;
+
+      // window.speechSynthesis.speak(Speecha);
+
       await startRecord();
     } else {
+      if (nowQuestionIndex >= 1) {
+        navigate("/interview/result");
+
+        return false;
+      }
       await stopRecord(nowQuestionIndex);
     }
   };
@@ -188,6 +204,10 @@ export function InterviewPage() {
           <GetNews onNext={handleClickNextButton}></GetNews>
         </Funnel>
 
+        <Funnel isOpen={activePage == "CreateJob"}>
+          <CreateJob onNext={handleClickNextButton}></CreateJob>
+        </Funnel>
+
         <Funnel isOpen={activePage == "InputUrl"}>
           <InputUrl onNext={handleClickNextButton}></InputUrl>
         </Funnel>
@@ -247,6 +267,7 @@ export function InterviewPage() {
                 width: "380px",
                 height: "260px",
                 borderRadius: "2rem",
+                outline: `${decibel - 125}px solid #fff`,
               }}
               ref={videoRef}
             ></video>
@@ -263,7 +284,7 @@ export function InterviewPage() {
               {Math.abs(faceDeg) > 10 ? "정면울 보세요" : ""}
             </p>
           </div>
-          <DecibelCircle decibel={decibel} />
+          {/* <DecibelCircle decibel={decibel} /> */}
 
           {/* {audioUrl != "" && <Button onClick={upload}>업로드</Button>} */}
 
@@ -275,7 +296,7 @@ export function InterviewPage() {
             }}
           >
             <Button onClick={record}>
-              {isStart ? "제출하기" : "인터뷰 시작"}
+              {isStart ? "제출하기" : "다음 질문"}
             </Button>
           </div>
         </Funnel>

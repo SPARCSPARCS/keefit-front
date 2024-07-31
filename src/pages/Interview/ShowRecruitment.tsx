@@ -13,9 +13,10 @@ export function ShowRecruitment({ onNext }: { onNext?: any }) {
   return (
     <div>
       <TopTitleBody>
-        <Title animationDelay="0">준비되셨나요?</Title>
-        <Title animationDelay="0.15">면접 시작, 할 수 있어요!</Title>
+        <Title animationDelay="0">성공적으로 불러왔어요!</Title>
+        <Title animationDelay="0.15">이제 직무 Fit을 찾아볼까요</Title>
       </TopTitleBody>
+
       <p
         css={css({
           color: "#ededf0",
