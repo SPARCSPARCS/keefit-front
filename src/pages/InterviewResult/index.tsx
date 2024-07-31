@@ -15,7 +15,7 @@ const rotate = keyframes`
     transform: rotateZ(10deg);
   }
   50% {
-    transform: rotateZ(-20deg) scale(1.3);
+    transform: rotateZ(-20deg) scale(1.1);
   }  100% {
     transform: rotateZ(10deg);
   }
@@ -127,7 +127,7 @@ export function ResultPage() {
               fontSize: "5rem",
               color: "#261B23",
               margin: "1rem",
-              animation: `${rotate} 0.9s ease infinite`,
+              animation: `${rotate} 10.9s ease infinite`,
             })}
           >
             👍
