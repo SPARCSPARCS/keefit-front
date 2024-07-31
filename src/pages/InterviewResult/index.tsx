@@ -15,15 +15,18 @@ export function ResultPage() {
   const companyName = useInterviewStore((state: any) => state.companyName);
   const userName = useUserStore((state: any) => state.userName);
 
-  const [score, setScore] = useState("80");
+  const [score, setScore] = useState("0");
 
   const getResult = async (id) => {
     try {
-      const response = await axios.get(`${BACK_SERVER_API}/interview/1/${id}`, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await axios.get(
+        `${BACK_SERVER_API}/interview/admin/${id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       setScore(response.data.jobInterview.totalScore);
 
@@ -34,7 +37,7 @@ export function ResultPage() {
   const sendResult = async () => {
     try {
       const response = await axios.post(
-        `${BACK_SERVER_API}/interview/1`,
+        `${BACK_SERVER_API}/interview/admin`,
         {
           companyName: companyName,
           field: userMajor,
@@ -116,7 +119,7 @@ export function ResultPage() {
           </h2>
         </div>
 
-        {questions.map((item, index) => (
+        {/* {questions.map((item, index) => (
           <p>
             {index}: {item}
           </p>
@@ -126,7 +129,7 @@ export function ResultPage() {
           <p>
             answers{index}: {item}
           </p>
-        ))}
+        ))} */}
       </div>
 
       <div
